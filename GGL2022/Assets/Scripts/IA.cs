@@ -99,7 +99,7 @@ public class IA : MonoBehaviour
 
         if (range > distancePreObjective)
         {
-            if (preObjetive.tag == "Player" && objective.tag != "Player")
+            if (preObjetive!=null && objective!=null && preObjetive.tag == "Player" && objective.tag != "Player")
             {
                 Debug.Log("goes brrr");
                 RuntimeManager.PlayOneShot(seeSound);

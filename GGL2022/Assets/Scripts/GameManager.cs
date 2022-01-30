@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using FMODUnity;
 
 public class GameManager : MonoBehaviour {
 
@@ -56,6 +55,11 @@ public class GameManager : MonoBehaviour {
 
     public void win() {
         Debug.Log("Has ganado pinche putito");
+        player.dead = true;
+        pMove.dead = true;
+        sm.play.SetActive(false);
+        sm.dead.SetActive(false);
+        uiGame.win();
     }
 
     public void lose() {

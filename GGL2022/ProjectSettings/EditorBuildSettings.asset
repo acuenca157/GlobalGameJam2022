@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/KuenKa.unity
+    guid: 0fd8fd507af828241ba468843d220cd7
+  - enabled: 1
+    path: Assets/Scenes/Cinematic.unity
+    guid: 1f5acfa15c246014e89fe405d8efeee7
   m_configObjects: {}

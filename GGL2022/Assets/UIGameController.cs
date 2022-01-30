@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIGameController : MonoBehaviour
 {
@@ -11,20 +12,22 @@ public class UIGameController : MonoBehaviour
     public Image panelMuerte;
     public TMP_Text textTitle, btExit, btRetry;
 
-    // Start is called before the first frame update
-    void Start()
-    {
 
+    public void restartScene() {
+        Application.LoadLevel(Application.loadedLevel);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void salir() {
+        Application.Quit();
     }
 
     public void loose() {
         StartCoroutine(looseAnim());
+    }
+
+    public void win()
+    {
+        StartCoroutine(winAnim());
     }
 
     IEnumerator looseAnim() {
@@ -52,6 +55,17 @@ public class UIGameController : MonoBehaviour
         btExit.gameObject.GetComponent<Button>().interactable = true;
         btRetry.gameObject.GetComponent<Button>().interactable = true;
 
+        yield return new WaitForEndOfFrame();
+    }
+
+    IEnumerator winAnim()
+    {
+        while (panelMuerte.color.a < 1f)
+        {
+            yield return new WaitForEndOfFrame();
+            panelMuerte.color = new Color(0, 0, 0, (panelMuerte.color.a + 0.01f));
+        }
+        SceneManager.LoadScene("Cinematic");
         yield return new WaitForEndOfFrame();
     }
 
