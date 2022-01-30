@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class candleController : MonoBehaviour
 {
+    Animator anim;
     PlayerController player;
     // Start is called before the first frame update
     void Start()
     {
         player = FindObjectOfType<PlayerController>();
+        anim = GetComponent<Animator>();
+    }
+
+    public void apagarVela() {
+        this.tag = "velaApagada";
+        anim.SetTrigger("unlit");
     }
 
     // Update is called once per frame

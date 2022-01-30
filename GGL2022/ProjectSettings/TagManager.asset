@@ -6,6 +6,9 @@ TagManager:
   tags:
   - candle
   - lamp
+  - randomPoint
+  - velaApagada
+  - IA
   layers:
   - Default
   - TransparentFX

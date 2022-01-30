@@ -42,7 +42,15 @@ public class GameManager : MonoBehaviour
     public void addLamp() {
         countLamps++;
         if (countLamps == numLamps) {
-            Debug.Log("WIN");
+            win();
         }
+    }
+
+    public void win() {
+        Debug.Log("Has ganado pinche putito");
+    }
+
+    public void lose() {
+        Debug.Log("Has muerto pinche putito");
     }
 }

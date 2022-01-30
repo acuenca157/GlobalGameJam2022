@@ -6,12 +6,17 @@ using UnityEngine.Experimental.Rendering.Universal;
 
 public class PlayerController : MonoBehaviour
 {
+    RayoAlfonso ra;
     public GameObject candle;
     public float maxLinerna, maxRadio, minLinterna, minRadio;
     private float nvlLinterna, nvlRadio;
     private int candels;
     public Light2D luzCono, luzRadio;
 
+    private void Start()
+    {
+        ra = FindObjectOfType<RayoAlfonso>();
+    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E)) {
@@ -20,6 +25,8 @@ public class PlayerController : MonoBehaviour
                 putVela();
             }
         }
+
+        ra.distancia = nvlLinterna * candels;
     }
 
     private void putVela()
