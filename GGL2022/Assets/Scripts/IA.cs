@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public class IA : MonoBehaviour
 {
+    [SerializeField] private EventReference stepSound;
+    [SerializeField] private EventReference seeSound;
+
     private GameManager gm;
 
     private PlayerController player;
@@ -22,6 +26,13 @@ public class IA : MonoBehaviour
     public Transform punto;
 
     private Transform randomPoint;
+
+
+    public void step() { 
+        if(inPlay)
+            RuntimeManager.PlayOneShot(stepSound);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +41,7 @@ public class IA : MonoBehaviour
 
         randomPoint = Instantiate(punto, getRandomVector2InRange(this.transform, 20f), Quaternion.identity);
         randomPoint.tag = "randomPoint";
+        StartCoroutine(hotFix());
         StartCoroutine(lerpObjective());
         //StartCoroutine(lerpObjective());
     }
@@ -37,26 +49,29 @@ public class IA : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (objective != null)
+        if (inPlay)
         {
-            if (freeze)
+            if (objective != null)
             {
-                velocity = 0.25f;
-            }
-            else if (objective.tag == "player")
-            {
-                velocity = 0.5f;
+                if (freeze)
+                {
+                    velocity = 0.25f;
+                }
+                else if (objective.tag == "player")
+                {
+                    velocity = 0.5f;
+                }
+                else
+                {
+                    velocity = 0.3f;
+                }
             }
             else
             {
-                velocity = 0.3f;
+                velocity = 0;
             }
+            getObjetive();
         }
-        else {
-            velocity = 0;
-        }
-
-        getObjetive();
     }
 
     void getObjetive() {
@@ -84,15 +99,15 @@ public class IA : MonoBehaviour
 
         if (range > distancePreObjective)
         {
+            if (preObjetive.tag == "Player" && objective.tag != "Player")
+            {
+                Debug.Log("goes brrr");
+                RuntimeManager.PlayOneShot(seeSound);
+            }
             objective = preObjetive;
         }
         else {
             if (objective == null || objective.gameObject.tag != "randomPoint") {
-                /*Vector2 posActual = this.transform.position;
-                posActual += new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)) * 30f;
-                Debug.Log(posActual);*/
-
-                //Transform otro = Instantiate(punto, new Vector2(posActual.x, posActual.y), Quaternion.identity);
                 objective = randomPoint.transform;
             }
             
@@ -119,8 +134,10 @@ public class IA : MonoBehaviour
                         break;
                     case "candle":
                         yield return new WaitForSeconds(3f);
-                        candleController vela = objective.GetComponent<candleController>();
-                        vela.apagarVela();
+                        if (objective != null && objective.tag == "candle") {
+                            candleController vela = objective.GetComponent<candleController>();
+                            vela.apagarVela();
+                        }
                         randomPoint.position = getRandomVector2InRange(this.transform, 30f);
                         objective = randomPoint;
                         yield return new WaitForEndOfFrame();
@@ -138,6 +155,15 @@ public class IA : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
 
+    }
+
+    IEnumerator hotFix() {
+        while (inPlay) {
+            yield return new WaitForEndOfFrame();
+            if (objective == null)
+                getObjetive();
+        }
+        yield return new WaitForEndOfFrame();
     }
 
     Vector2 getRandomVector2InRange(Transform center, float range) {

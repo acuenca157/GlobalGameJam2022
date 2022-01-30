@@ -170,6 +170,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77dcf84d6c9070c4a9491426c7044cae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundFarolillo:
+    Guid:
+      Data1: -663778124
+      Data2: 1166557374
+      Data3: -1355567718
+      Data4: 28725466
+    Path: event:/Player/light_farolillo
   range: 1.32
   encendido: {fileID: 21300000, guid: 49ee7886ebf1ecc40bd79d3bb750dfec, type: 3}
 --- !u!61 &-6490629492031139036

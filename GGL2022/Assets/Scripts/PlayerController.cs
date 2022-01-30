@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
+using FMODUnity;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,6 +13,11 @@ public class PlayerController : MonoBehaviour
     private float nvlLinterna, nvlRadio;
     private int candels;
     public Light2D luzCono, luzRadio;
+    public bool dead = false;
+
+    [SerializeField] private EventReference step;
+    [SerializeField] private EventReference putVelaSound;
+    [SerializeField] private EventReference notVelaSound;
 
     private void Start()
     {
@@ -19,14 +25,24 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E)) {
-            if (candels > 0)
-            {
-                putVela();
+        if (!dead) {
+            if (Input.GetKeyDown(KeyCode.E)) {
+                if (candels > 0)
+                {
+                    putVela();
+                }
+                else {
+                    RuntimeManager.PlayOneShot(notVelaSound);
+                }
             }
-        }
 
-        ra.distancia = nvlLinterna * candels;
+            ra.distancia = nvlLinterna * candels;
+        }
+    }
+
+    public void stepSound() {
+        if(!dead)
+            RuntimeManager.PlayOneShot(step);
     }
 
     private void putVela()
@@ -54,6 +70,7 @@ public class PlayerController : MonoBehaviour
         if (canPutVela) {
             removeCandle();
             Instantiate(candle, transform.position, Quaternion.identity);
+            RuntimeManager.PlayOneShot(putVelaSound);
         }
 
         

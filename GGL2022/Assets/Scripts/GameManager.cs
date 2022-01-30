@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
-public class GameManager : MonoBehaviour
-{
+public class GameManager : MonoBehaviour {
+
     private PlayerController player;
+    private PlayerMovement pMove;
 
+    private SongsManager sm;
+    private UIGameController uiGame;
     public GameObject candelabroPrefab;
     public int minLamps = 5;
     public int maxLamps = 9;
@@ -16,7 +20,11 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        sm = FindObjectOfType<SongsManager>();
+        sm.setPlay();
+        uiGame = FindObjectOfType<UIGameController>();
         player = FindObjectOfType<PlayerController>();
+        pMove = FindObjectOfType<PlayerMovement>();
         LightGenerator lg = FindObjectOfType<LightGenerator>();
         Random.seed = ( (int) Mathf.Floor(System.DateTime.Now.Second) );
         Transform[] points = lg.getPoints(Random.Range(minLamps + 1, maxLamps));
@@ -52,5 +60,9 @@ public class GameManager : MonoBehaviour
 
     public void lose() {
         Debug.Log("Has muerto pinche putito");
+        player.dead = true;
+        pMove.dead = true;
+        uiGame.loose();
+        sm.setDead();
     }
 }

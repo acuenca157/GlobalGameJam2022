@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{1bf8c331-5d62-48e4-b9ef-ca9f24b998c7}">
+		<property name="assetPath">
+			<value>FX/monster/Pasos bicho.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>2.8578231292517007</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{ac9d9d17-03f5-4460-98f6-361d0af25a19}</destination>
+		</relationship>
+	</object>
+</objects>

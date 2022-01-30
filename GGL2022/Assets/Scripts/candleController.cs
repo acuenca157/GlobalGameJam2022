@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public class candleController : MonoBehaviour
 {
     Animator anim;
     PlayerController player;
+
+    [SerializeField] private EventReference pickVelaSound;
+    [SerializeField] private EventReference blowVelaSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +19,7 @@ public class candleController : MonoBehaviour
 
     public void apagarVela() {
         this.tag = "velaApagada";
+        RuntimeManager.PlayOneShot(blowVelaSound);
         anim.SetTrigger("unlit");
     }
 
@@ -24,6 +29,7 @@ public class candleController : MonoBehaviour
         if (Vector2.Distance(this.transform.position, player.transform.position) < 1f) {
             if (Input.GetKeyDown(KeyCode.E)) {
                 player.addCandle();
+                RuntimeManager.PlayOneShot(pickVelaSound);
                 Destroy(this.gameObject);
             }
         }

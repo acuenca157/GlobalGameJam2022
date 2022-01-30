@@ -6,6 +6,8 @@ using UnityEngine.PlayerLoop;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public bool dead = false;
+
     Rigidbody2D body;
     SpriteRenderer sr;
     Animator animator;
@@ -25,34 +27,40 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // Gives a value between -1 and 1
-        horizontal = Input.GetAxisRaw("Horizontal"); // -1 is left
-        vertical = Input.GetAxisRaw("Vertical"); // -1 is down
-
-        #region Animations
-        animator.SetFloat("vertical", vertical);
-        if (horizontal != 0)
+        if (!dead)
         {
-            sr.flipX = horizontal >= 0 ? false : true;
-            animator.SetBool("walkingHorizontal", true);
+            // Gives a value between -1 and 1
+            horizontal = Input.GetAxisRaw("Horizontal"); // -1 is left
+            vertical = Input.GetAxisRaw("Vertical"); // -1 is down
+
+            #region Animations
+            animator.SetFloat("vertical", vertical);
+            if (horizontal != 0)
+            {
+                sr.flipX = horizontal >= 0 ? false : true;
+                animator.SetBool("walkingHorizontal", true);
+            }
+            else
+                animator.SetBool("walkingHorizontal", false);
+
+            animator.SetBool("isVertical", (vertical == 0 ? false : true));
+
+            #endregion Animations
         }
-        else
-            animator.SetBool("walkingHorizontal", false);
-
-        animator.SetBool("isVertical", (vertical == 0 ? false : true));
-
-        #endregion Animations
     }
 
     void FixedUpdate()
     {
-        if (horizontal != 0 && vertical != 0) // Check for diagonal movement
+        if (!dead)
         {
-            // limit movement speed diagonally, so you move at 70% speed
-            horizontal *= moveLimiter;
-            vertical *= moveLimiter;
-        }
+            if (horizontal != 0 && vertical != 0) // Check for diagonal movement
+            {
+                // limit movement speed diagonally, so you move at 70% speed
+                horizontal *= moveLimiter;
+                vertical *= moveLimiter;
+            }
 
-        body.velocity = new Vector2(horizontal * runSpeed, vertical * runSpeed);
+            body.velocity = new Vector2(horizontal * runSpeed, vertical * runSpeed);
+        }
     }
 }

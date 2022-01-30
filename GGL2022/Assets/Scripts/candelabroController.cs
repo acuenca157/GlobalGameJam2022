@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
+using FMODUnity;
+
 public class candelabroController : MonoBehaviour
 {
     private GameManager gm;
     private Transform Player;
+
+    [SerializeField] private EventReference soundFarolillo;
 
     [Range(0, 5)]
     public float range = 1.32f;
@@ -51,7 +55,7 @@ public class candelabroController : MonoBehaviour
         sr.sprite = encendido;
         StartCoroutine(encenderLuz(0.8f));
         luz.pointLightOuterRadius = 5f;
-
+        RuntimeManager.PlayOneShot(soundFarolillo);
         gm.addLamp();
         won = true;
     }

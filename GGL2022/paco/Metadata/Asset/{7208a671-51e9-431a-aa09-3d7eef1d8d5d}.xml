@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EncodableAsset" id="{7208a671-51e9-431a-aa09-3d7eef1d8d5d}">
+		<property name="assetPath">
+			<value>FX/candles/</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{ac9d9d17-03f5-4460-98f6-361d0af25a19}</destination>
+		</relationship>
+	</object>
+</objects>

@@ -237,3 +237,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4466ccc0c201e8448be591d5cc8e405, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickVelaSound:
+    Guid:
+      Data1: 137210332
+      Data2: 1215955291
+      Data3: 1448694939
+      Data4: -698794553
+    Path: event:/Player/pick_candle
+  blowVelaSound:
+    Guid:
+      Data1: -1243546789
+      Data2: 1179946726
+      Data3: 176126124
+      Data4: 813477078
+    Path: event:/Player/3d_candle_blow
