@@ -69,10 +69,10 @@ MonoBehaviour:
   Path: paco/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 637791540830374734
+  lastModified: 637791589913958121
   FileSizes:
   - Name: Desktop
-    Value: 3418976
+    Value: 3805856
   Exists: 1
 --- !u!114 &-7566472880741849205
 MonoBehaviour:
@@ -143,10 +143,10 @@ MonoBehaviour:
   Path: paco/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637791540830384729
+  lastModified: 637791589913997999
   FileSizes:
   - Name: Desktop
-    Value: 1342
+    Value: 1382
   Exists: 1
 --- !u!114 &-5506098784401158359
 MonoBehaviour:
@@ -166,6 +166,33 @@ MonoBehaviour:
     Data2: 1078732830
     Data3: -1385668973
     Data4: -1593134469
+  Banks:
+  - {fileID: -8271241233747993349}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-4550050084188298140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/cinematic
+  m_EditorClassIdentifier: 
+  Path: event:/cinematic
+  Guid:
+    Data1: 1484223104
+    Data2: 1328471694
+    Data3: 354421947
+    Data4: 971905209
   Banks:
   - {fileID: -8271241233747993349}
   IsStream: 1
@@ -226,7 +253,7 @@ MonoBehaviour:
   Is3D: 1
   IsOneShot: 1
   Parameters: []
-  MinDistance: 1.2
+  MinDistance: 2.6000001
   MaxDistance: 50
   Length: 0
 --- !u!114 &-267239168916102237
@@ -285,12 +312,13 @@ MonoBehaviour:
   - {fileID: -2628500809977030307}
   - {fileID: -8599610277618385770}
   - {fileID: -267239168916102237}
+  - {fileID: -4550050084188298140}
   EditorParameters: []
   MasterBanks:
   - {fileID: -8271241233747993349}
   StringsBanks:
   - {fileID: -5736576395111407515}
-  cacheTime: 637791540830384729
+  cacheTime: 637791589913997999
   cacheVersion: 10
 --- !u!114 &748692831568984850
 MonoBehaviour:
@@ -422,7 +450,7 @@ MonoBehaviour:
   - {fileID: -8271241233747993349}
   IsStream: 1
   Is3D: 0
-  IsOneShot: 1
+  IsOneShot: 0
   Parameters: []
   MinDistance: 1
   MaxDistance: 20

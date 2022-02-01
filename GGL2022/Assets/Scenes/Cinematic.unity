@@ -367,7 +367,7 @@ MonoBehaviour:
       Data4: 971905209
     Path: event:/cinematic
   image: {fileID: 1187101860}
-  clip: {fileID: 32900000, guid: dcee1731973ae1f458bd6bc8e0162f81, type: 3}
+  clip: {fileID: 32900000, guid: 060aeaa6232abfc4c9eed624a22d9843, type: 3}
   imagenNegra: {fileID: 2019723253}
 --- !u!222 &1187101862
 CanvasRenderer:

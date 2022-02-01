@@ -19,7 +19,7 @@ public class IA : MonoBehaviour
     public float velocity;
     [Range(0, 50)]
     public float range;
-    [Range(0, 10)]
+    [Range(0, 7)]
     public float rangeAttack;
     private Transform objective;
 
@@ -55,7 +55,7 @@ public class IA : MonoBehaviour
             {
                 if (freeze)
                 {
-                    velocity = 0.25f;
+                    velocity = 0.35f;
                 }
                 else if (objective.tag == "player")
                 {
@@ -63,7 +63,7 @@ public class IA : MonoBehaviour
                 }
                 else
                 {
-                    velocity = 0.3f;
+                    velocity = 0.5f;
                 }
             }
             else
@@ -133,7 +133,7 @@ public class IA : MonoBehaviour
                         inPlay = false;
                         break;
                     case "candle":
-                        yield return new WaitForSeconds(3f);
+                        yield return new WaitForSeconds(5f);
                         if (objective != null && objective.tag == "candle") {
                             candleController vela = objective.GetComponent<candleController>();
                             vela.apagarVela();
@@ -143,7 +143,10 @@ public class IA : MonoBehaviour
                         yield return new WaitForEndOfFrame();
                         break;
                     case "randompoint":
-                        this.transform.position = getRandomVector2InRange(player.transform, 30f);
+                        //this.transform.position = getRandomVector2InRange(player.transform, 30f);
+                        //randomPoint.position = getRandomVector2InRange(this.transform, 20f);
+
+                        this.transform.position = getRandomVector2InRange(player.transform, 20f);
                         randomPoint.position = getRandomVector2InRange(this.transform, 20f);
                         break;
                     default:
@@ -168,7 +171,7 @@ public class IA : MonoBehaviour
 
     Vector2 getRandomVector2InRange(Transform center, float range) {
         Vector2 newVector = center.transform.position;
-        newVector = (new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f))).normalized * range;
+        newVector += (new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f))).normalized * range;
         return newVector;
     }
 

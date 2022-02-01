@@ -11,6 +11,16 @@ public class MenuManager : MonoBehaviour
         SceneManager.LoadScene("ControlsScene");
     }
 
+    public void loadGame()
+    {
+        SceneManager.LoadScene("KuenKa");
+    }
+
+    public void exit()
+    {
+        Application.Quit();
+    }
+
     // Update is called once per frame
     void Update()
     {

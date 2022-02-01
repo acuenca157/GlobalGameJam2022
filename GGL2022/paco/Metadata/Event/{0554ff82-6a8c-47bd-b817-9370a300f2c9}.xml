@@ -136,6 +136,9 @@
 		<property name="volume">
 			<value>-2.5</value>
 		</property>
+		<property name="looping">
+			<value>true</value>
+		</property>
 		<relationship name="audioFile">
 			<destination>{8bdcd284-1a4c-47ee-8c53-ae1648e6032c}</destination>
 		</relationship>
@@ -143,6 +146,9 @@
 	<object class="SingleSound" id="{8dbd1d70-754b-4817-9aab-c156ab560a54}">
 		<property name="volume">
 			<value>-5.5</value>
+		</property>
+		<property name="looping">
+			<value>true</value>
 		</property>
 		<relationship name="audioFile">
 			<destination>{3887b7ba-a31a-4fa1-808c-a1882b7cee6e}</destination>

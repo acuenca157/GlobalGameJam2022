@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour {
         Random.seed = ( (int) Mathf.Floor(System.DateTime.Now.Second) );
         Transform[] points = lg.getPoints(Random.Range(minLamps + 1, maxLamps));
         numLamps = points.Length;
-        player.setCandels(points.Length + 1);
+        player.setCandels(points.Length + 3);
         foreach (Transform t in points) {
             Instantiate(candelabroPrefab, t.position, Quaternion.identity);
         }
