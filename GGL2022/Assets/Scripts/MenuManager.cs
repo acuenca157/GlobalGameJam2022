@@ -13,7 +13,7 @@ public class MenuManager : MonoBehaviour
 
     public void loadGame()
     {
-        SceneManager.LoadScene("KuenKa");
+        SceneManager.LoadScene("Game01");
     }
 
     public void exit()

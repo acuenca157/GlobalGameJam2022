@@ -1,13 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
+using Random = UnityEngine.Random;
 
 public class IA : MonoBehaviour
 {
+    [NonSerialized] public bool inPause;
     [SerializeField] private EventReference stepSound;
     [SerializeField] private EventReference seeSound;
 
+    private Animator animator;
+    
     private GameManager gm;
 
     private PlayerController player;
@@ -36,6 +41,7 @@ public class IA : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponent<Animator>();
         gm = FindObjectOfType<GameManager>();
         player = FindObjectOfType<PlayerController>();
 
@@ -68,7 +74,7 @@ public class IA : MonoBehaviour
             }
             else
             {
-                velocity = 0;
+                velocity = 0.0f;
             }
             getObjetive();
         }
@@ -119,45 +125,56 @@ public class IA : MonoBehaviour
         while (inPlay)
         {
             yield return new WaitForEndOfFrame();
-            if (Vector2.Distance(this.transform.position, objective.position) > rangeAttack)
+            if (!inPause)
             {
-                this.transform.position = Vector2.Lerp(this.transform.position, objective.position, Time.deltaTime * velocity);
-            }
-            else
-            {
-                Debug.Log("He llegado a " + objective.tag);
-                switch (objective.tag.ToLower().Trim())
+                if (Vector2.Distance(this.transform.position, objective.position) > rangeAttack)
                 {
-                    case "player":
-                        gm.lose();
-                        inPlay = false;
-                        break;
-                    case "candle":
-                        yield return new WaitForSeconds(5f);
-                        if (objective != null && objective.tag == "candle") {
-                            candleController vela = objective.GetComponent<candleController>();
-                            vela.apagarVela();
-                        }
-                        randomPoint.position = getRandomVector2InRange(this.transform, 30f);
-                        objective = randomPoint;
-                        yield return new WaitForEndOfFrame();
-                        break;
-                    case "randompoint":
-                        //this.transform.position = getRandomVector2InRange(player.transform, 30f);
-                        //randomPoint.position = getRandomVector2InRange(this.transform, 20f);
-
-                        this.transform.position = getRandomVector2InRange(player.transform, 20f);
-                        randomPoint.position = getRandomVector2InRange(this.transform, 20f);
-                        break;
-                    default:
-                        break;
+                    this.transform.position = Vector2.Lerp(this.transform.position, objective.position,
+                        Time.deltaTime * velocity);
                 }
-                objective = null;
+                else
+                {
+                    Debug.Log("He llegado a " + objective.tag);
+                    switch (objective.tag.ToLower().Trim())
+                    {
+                        case "player":
+                            gm.lose();
+                            inPlay = false;
+                            break;
+                        case "candle":
+                            yield return new WaitForSeconds(5f);
+                            if (objective != null && objective.tag == "candle")
+                            {
+                                animator.SetTrigger("attack");
+                                candleController vela = objective.GetComponent<candleController>();
+                                vela.apagarVela();
+                            }
+
+                            randomPoint.position = getRandomVector2InRange(this.transform, 30f);
+                            objective = randomPoint;
+                            yield return new WaitForEndOfFrame();
+                            break;
+                        case "randompoint":
+                            this.transform.position = getRandomVector2InRange(player.transform, 20f);
+                            randomPoint.position = getRandomVector2InRange(this.transform, 20f);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    objective = null;
+                }
             }
         }
         yield return new WaitForEndOfFrame();
+    }
 
-
+    public void goAway(Vector2 posCandelabro)
+    {
+        Vector2 posActual = this.transform.position;
+        Vector2 posNueva = posCandelabro - posActual;
+        
+        randomPoint.position = posNueva;
     }
 
     IEnumerator hotFix() {

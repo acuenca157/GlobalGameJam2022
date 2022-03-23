@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,63 +9,46 @@ using FMODUnity;
 public class candelabroController : MonoBehaviour
 {
     private GameManager gm;
-    private Transform Player;
-
     [SerializeField] private EventReference soundFarolillo;
-
-    [Range(0, 5)]
-    public float range = 1.32f;
     public Sprite encendido;
-    bool won = false;
+
+    [SerializeField]
+    [Range(0f, 10f)]
+    private float range;
 
     private SpriteRenderer sr;
     private Light2D luz;
+
+    private Transform ia;
 
 
     // Start is called before the first frame update
     void Start()
     {
         gm = FindObjectOfType<GameManager>();
-        Player = gm.getPlayerTransform();
         sr = GetComponent<SpriteRenderer>();
         luz = GetComponentInChildren<Light2D>();
+
+        ia = FindObjectOfType<IA>().transform;
     }
 
-    // Update is called once per frame
-    void Update() 
+    private void Update()
     {
-        if (Vector2.Distance(this.transform.position, Player.position) <= range)
+        if (Vector2.Distance(this.transform.position, ia.transform.position) < range)
         {
-            if (!won)
-            {
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    if (gm.removeCandle()) {
-                        encender();
-                    }
-                    
-                }
-            }
-            else {
-                Debug.Log("Recargar Bateria");
-            }
+            Debug.Log("Vete nen");
+            ia.GetComponent<IA>().goAway(this.transform.position);
         }
     }
 
     public void encender() {
+        this.tag = "Untagged";
         sr.sprite = encendido;
         StartCoroutine(encenderLuz(0.8f));
         luz.pointLightOuterRadius = 5f;
+        range = 5.0f;
         RuntimeManager.PlayOneShot(soundFarolillo);
         gm.addLamp();
-        won = true;
-    }
-
-    void OnDrawGizmosSelected()
-    {
-        // Draw a yellow sphere at the transform's position
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, range);
     }
 
     IEnumerator encenderLuz(float f) {
@@ -74,5 +58,11 @@ public class candelabroController : MonoBehaviour
         }
 
         yield return new WaitForEndOfFrame();
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(this.transform.position, range);
     }
 }

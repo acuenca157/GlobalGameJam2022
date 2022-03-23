@@ -4,8 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
+using aburron.Input;
+
 public class PlayerMovement : MonoBehaviour
 {
+
+    private string direction;
+
+    private AbuInput input = new AbuInput();
+
     public bool dead = false;
 
     Rigidbody2D body;
@@ -18,6 +25,19 @@ public class PlayerMovement : MonoBehaviour
 
     public float runSpeed = 20.0f;
 
+    private void Awake()
+    {
+        input.Enable();
+
+        input.onLeftStick += onLeftStick;
+    }
+
+    private void onLeftStick(Vector2 input)
+    {
+        horizontal = input.x;
+        vertical = input.y;
+    }
+
     void Start ()
     {
         body = GetComponent<Rigidbody2D>();
@@ -29,23 +49,15 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!dead)
         {
-            // Gives a value between -1 and 1
-            horizontal = Input.GetAxisRaw("Horizontal"); // -1 is left
-            vertical = Input.GetAxisRaw("Vertical"); // -1 is down
-
-            #region Animations
-            animator.SetFloat("vertical", vertical);
             if (horizontal != 0)
             {
                 sr.flipX = horizontal >= 0 ? false : true;
-                animator.SetBool("walkingHorizontal", true);
             }
-            else
-                animator.SetBool("walkingHorizontal", false);
+            
+            animator.SetFloat("Horizontal", horizontal);
+            animator.SetFloat("Vertical", vertical);
+            animator.SetFloat("Speed", new Vector2(horizontal, vertical).sqrMagnitude);
 
-            animator.SetBool("isVertical", (vertical == 0 ? false : true));
-
-            #endregion Animations
         }
     }
 
@@ -53,14 +65,17 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!dead)
         {
-            if (horizontal != 0 && vertical != 0) // Check for diagonal movement
-            {
-                // limit movement speed diagonally, so you move at 70% speed
-                horizontal *= moveLimiter;
-                vertical *= moveLimiter;
-            }
-
             body.velocity = new Vector2(horizontal * runSpeed, vertical * runSpeed);
         }
+        else
+        {
+            body.velocity = Vector2.zero;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        input.Disable();
+        input.onLeftStick -= onLeftStick;
     }
 }

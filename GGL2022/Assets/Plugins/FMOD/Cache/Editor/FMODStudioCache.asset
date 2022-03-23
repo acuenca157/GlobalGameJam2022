@@ -69,7 +69,7 @@ MonoBehaviour:
   Path: paco/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 637791589913958121
+  lastModified: 637809581821823770
   FileSizes:
   - Name: Desktop
     Value: 3805856
@@ -143,7 +143,7 @@ MonoBehaviour:
   Path: paco/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637791589913997999
+  lastModified: 637809581821833772
   FileSizes:
   - Name: Desktop
     Value: 1382
@@ -318,7 +318,7 @@ MonoBehaviour:
   - {fileID: -8271241233747993349}
   StringsBanks:
   - {fileID: -5736576395111407515}
-  cacheTime: 637791589913997999
+  cacheTime: 637809581821833772
   cacheVersion: 10
 --- !u!114 &748692831568984850
 MonoBehaviour:
